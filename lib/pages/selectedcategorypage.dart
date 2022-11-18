@@ -52,6 +52,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
   bool coloron = false;
   bool isLoading = false;
   String photoUrl = "";
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -122,16 +123,14 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
   }
 
   Future<String> getPhotoUrl(String uid) async {
+    isLoading = true;
 
-      isLoading = true;
-    
     var user = await _firestore.collection("users").doc(uid).get();
     var userUrl = user.data()!;
-    
-      isLoading = false;
-    
+
+    isLoading = false;
+
     return userUrl['photoUrl'];
-    
   }
 
   @override
@@ -216,14 +215,29 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                   Container(
                     width: 200,
                     height: 20,
-                    child: ListView.builder (
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: widget.joinList.length,
                       itemBuilder: ((context, index) {
-                        getPhotoUrl(widget.joinList[index]).then((value) {
-                          photoUrl = value;
-                        });
-                        return buildAvatar(photoUrl);
+                        // getPhotoUrl(widget.joinList[index]).then((value) {
+                        //   photoUrl = value;
+                        // });
+                        // print(photoUrl);
+                        // return buildAvatar(photoUrl);
+                        return FutureBuilder(
+                          future: _firestore
+                              .collection("users")
+                              .doc(widget.joinList[index])
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const CircularProgressIndicator(
+                                color: Colors.black,
+                              );
+                            }
+                            return buildAvatar((snapshot.data! as dynamic)['photoUrl']);
+                          },
+                        );
                       }),
                     ),
                   )

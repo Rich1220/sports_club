@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sports_club/helpers/appcolors.dart';
 import 'package:sports_club/pages/login_page.dart';
 import 'package:sports_club/pages/root_page.dart';
 import 'package:sports_club/providers/user_provider.dart';

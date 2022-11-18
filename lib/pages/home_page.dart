@@ -86,7 +86,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
     posts = await RemoteService().getPosts();
     if (posts != null) {
       print("No data");
-      setState(() {
+      if(mounted)setState(() {
         isLoaded = true;
       });
     } else {

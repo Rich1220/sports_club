@@ -66,7 +66,7 @@ class _editPorfilePageState extends State<editPorfilePage> {
     setState(() {
       isSaving = false;
     });
-    Navigator.pop(context);
+    Navigator.pop(context,3);
   }
 
   @override

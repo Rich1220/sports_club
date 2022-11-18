@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   int following = 0;
   bool isFollowing = false;
   bool isLoading = false;
-
+  int x = 0;
   @override
   void initState() {
     super.initState();
@@ -76,6 +76,13 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     setState(() {
       isLoading = false;
+    });
+  }
+
+  void goback(dynamic value) async {
+    getData();
+    setState(() {
+      
     });
   }
 
@@ -262,14 +269,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderColor: Colors.grey,
                                 text: 'Edit Profile',
                                 textColor: primaryColor,
-                                function: () {
-                                  Navigator.push(
+                                function: () async {
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => editPorfilePage(
                                               userUrl: userData['photoUrl'],
                                               userName: userData['username'],
-                                              userAbout: userData['bio'])));
+                                              userAbout:
+                                                  userData['bio']))).then(
+                                      (value) {
+                                    goback(value);
+                                  });
                                 })
                             : Container(),
 
