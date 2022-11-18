@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1233492973",
+    "project_id": "sportsclub-8d3b6",
+    "storage_bucket": "sportsclub-8d3b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1233492973:android:fe2097f483b07cc21e65e4",
+        "android_client_info": {
+          "package_name": "com.example.sports_club"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1233492973-86ha0c3orvu70783iqt4su9fpge9bb8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQYsKEc3RiGYhYXXVxF30-TXeeVKco2h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1233492973-86ha0c3orvu70783iqt4su9fpge9bb8h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
