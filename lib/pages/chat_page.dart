@@ -5,11 +5,13 @@ import 'package:sports_club/models/recorder.dart';
 import 'package:sports_club/utils/colors.dart';
 import '../models/recorder.dart';
 import 'package:sports_club/pages/add_record_page.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
   @override
   State<ChatPage> createState() => _recordsportStatePage();
 }
+
 class _recordsportStatePage extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
@@ -20,34 +22,27 @@ class _recordsportStatePage extends State<ChatPage> {
             alignment: Alignment.centerLeft,
             child: Text("消耗熱量紀錄"),
           )),
-      body:StreamBuilder<List<Recorder>>(
+      body: StreamBuilder<List<Recorder>>(
         stream: readRecorder(),
-        builder: (context,snapshot){
-          if(snapshot.hasError){
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
             return Text('Something was wrong! ${snapshot.error}');
-          }
-          else if(snapshot.hasData){
-            final recorders=snapshot.data!;
+          } else if (snapshot.hasData) {
+            final recorders = snapshot.data!;
             return ListView(
               children: recorders.map(buildRecorder).toList(),
             );
-          }
-          else{
-            return Center(child: CircularProgressIndicator());
+          } else {
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: appbarColor,
-        child:const Icon(Icons.add),
-        onPressed: () =>
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddRecord())),
-
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AddRecord())),
       ),
-
     );
   }
 }
@@ -67,25 +62,26 @@ Widget buildBarItem(IconData icon, String sportName) {
             icon,
             size: 35,
           ),
-          onPressed: () {
-          },
+          onPressed: () {},
         ),
       ]));
 }
-Widget buildRecorder(Recorder recorder)=>ListTile(
-  leading: buildBarItem(Icons.sports_basketball_outlined,recorder.sport),
-  title: Text('${recorder.sport}      ${recorder.time}min'),
-  subtitle: Text('cost ${recorder.costhot} cal'),
-  tileColor: Colors.white,
-  trailing: Icon(Icons.keyboard_arrow_right),
-  onLongPress: (){
-    // final docUser=FirebaseFirestore.instance
-    //     .collection('collection').doc('');
-    // docUser.delete();
-  },
-);
-Stream<List<Recorder>> readRecorder()=>FirebaseFirestore.instance
+
+Widget buildRecorder(Recorder recorder) => ListTile(
+      leading: buildBarItem(Icons.sports_basketball_outlined, recorder.sport),
+      title: Text('${recorder.sport}      ${recorder.time}min'),
+      subtitle: Text('cost ${recorder.costhot} cal'),
+      tileColor: Colors.white,
+      trailing: Icon(Icons.keyboard_arrow_right),
+      onLongPress: () {
+        // final docUser=FirebaseFirestore.instance
+        //     .collection('collection').doc('');
+        // docUser.delete();
+      },
+    );
+Stream<List<Recorder>> readRecorder() => FirebaseFirestore.instance
     .collection('collection')
+    .where('id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
     .snapshots()
     .map((snapshot) =>
-    snapshot.docs.map((doc)=> Recorder.fromJson(doc.data())).toList());
+        snapshot.docs.map((doc) => Recorder.fromJson(doc.data())).toList());

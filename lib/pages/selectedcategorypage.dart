@@ -183,7 +183,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                   ),
                   const Text(
                     "舉辦人 :",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 28),
                   ),
                   SizedBox(width: 10),
                   isLoading
@@ -193,7 +193,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                           backgroundImage: NetworkImage(
                             userData['photoUrl'],
                           ),
-                          radius: 20),
+                          radius: 18),
                   SizedBox(
                     width: 5,
                   ),
@@ -214,7 +214,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                   const Text("目前人員: ", style: TextStyle(fontSize: 20)),
                   Container(
                     width: 200,
-                    height: 20,
+                    height: 30,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: widget.joinList.length,
@@ -485,6 +485,6 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
         backgroundImage: NetworkImage(
           photoUrl,
         ),
-        radius: 20,
+        radius: 25,
       );
 }

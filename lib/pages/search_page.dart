@@ -46,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(color: Colors.black,),
                     );
                   }
                   return ListView.builder(
