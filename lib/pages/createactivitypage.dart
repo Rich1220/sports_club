@@ -38,7 +38,7 @@ class _CreateActivityPage extends State<CreateActivityPage> {
   String? URL;
 
   final controllerActivityName = TextEditingController();
-  final controllerintroduce =  TextEditingController();
+  final controllerintroduce = TextEditingController();
 
   File? image;
 
@@ -75,7 +75,7 @@ class _CreateActivityPage extends State<CreateActivityPage> {
     "  排球",
     "  高爾夫",
   ];
-  List limitnum =[
+  List limitnum = [
     ' 1',
     ' 2',
     ' 3',
@@ -109,10 +109,7 @@ class _CreateActivityPage extends State<CreateActivityPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appbarColor,
@@ -120,338 +117,324 @@ class _CreateActivityPage extends State<CreateActivityPage> {
         ),
         body: SingleChildScrollView(
             child: Stack(
-              //alignment: Alignment.topCenter,
+                //alignment: Alignment.topCenter,
                 children: <Widget>[
-                  Column(children: [
-                    Stack(children: [
-                      SizedBox(
-                        height:300,
-                        child: image != null
-                            ? ImageWidget(
+              Column(children: [
+                Stack(children: [
+                  SizedBox(
+                    height: 300,
+                    child: image != null
+                        ? ImageWidget(
                             image: image!,
                             onClicked: (source) => pickImage(source))
-                            : buildCoverImage(),
+                        : buildCoverImage(),
+                  ),
+                  Positioned(
+                    right: 150,
+                    bottom: 0,
+                    child: RawMaterialButton(
+                        elevation: 10,
+                        fillColor: Colors.grey,
+                        child: Icon(Icons.add_a_photo),
+                        padding: EdgeInsets.all(15.0),
+                        shape: CircleBorder(),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  title: Text(
+                                    'Choose option',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        // Camera
+                                        InkWell(
+                                            onTap: () =>
+                                                pickImage(ImageSource.camera),
+                                            splashColor: Colors.black,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.camera,
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                                Text('Camera',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black)),
+                                              ],
+                                            )),
+                                        // Gallery
+                                        InkWell(
+                                            onTap: () =>
+                                                pickImage(ImageSource.gallery),
+                                            splashColor: Colors.blue,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.image,
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                                Text('Gallery',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black)),
+                                              ],
+                                            )),
+                                        // Remove
+                                        InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.black,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                                Text('Remove',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black)),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        }),
+                  ),
+                ]),
+                // 舉辦校區(鎖死)
+                Column(children: <Widget>[
+                  SizedBox(height: height * 0.02),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on_rounded,
+                        color: Colors.red,
                       ),
-                      
-                        Positioned(
-                          right: 150,
-                          bottom: 0,
-                          child: RawMaterialButton(
-                              elevation: 10,
-                              fillColor: Colors.grey,
-                              child: Icon(Icons.add_a_photo),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        backgroundColor: Colors.white,
-                                        title: Text(
-                                          'Choose option',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: [
-                                              // Camera
-                                              InkWell(
-                                                  onTap: () =>
-                                                      pickImage(
-                                                          ImageSource.camera),
-                                                  splashColor: Colors.black,
-                                                  child: Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets.all(
-                                                            8.0),
-                                                        child: Icon(
-                                                          Icons.camera,
-                                                          color: Colors.blue,
-                                                        ),
-                                                      ),
-                                                      Text('Camera',
-                                                          style: TextStyle(
-                                                              fontSize: 18,
-                                                              color: Colors
-                                                                  .black)),
-                                                    ],
-                                                  )),
-                                              // Gallery
-                                              InkWell(
-                                                  onTap: () =>
-                                                      pickImage(
-                                                          ImageSource.gallery),
-                                                  splashColor: Colors.blue,
-                                                  child: Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets.all(
-                                                            8.0),
-                                                        child: Icon(
-                                                          Icons.image,
-                                                          color: Colors.blue,
-                                                        ),
-                                                      ),
-                                                      Text('Gallery',
-                                                          style: TextStyle(
-                                                              fontSize: 18,
-                                                              color: Colors
-                                                                  .black)),
-                                                    ],
-                                                  )),
-                                              // Remove
-                                              InkWell(
-                                                  onTap: () {},
-                                                  splashColor: Colors.black,
-                                                  child: Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets.all(
-                                                            8.0),
-                                                        child: Icon(
-                                                          Icons.remove,
-                                                          color: Colors.blue,
-                                                        ),
-                                                      ),
-                                                      Text('Remove',
-                                                          style: TextStyle(
-                                                              fontSize: 18,
-                                                              color: Colors
-                                                                  .black)),
-                                                    ],
-                                                  ))
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                              }),
-                        ),
-                       
-                    ]),
-                    // 舉辦校區(鎖死)
-                    Column(children: <Widget>[
-                      SizedBox(height: height * 0.02),
-                      Row(
-                        children: [
-                          const Icon(Icons.location_on_rounded,color: Colors.red,),
-                          Text(
-                            widget.showData,
-                            style:
+                      Text(
+                        widget.showData,
+                        style:
                             const TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //活動名稱
+                    SizedBox(height: height * 0.02),
+                    TextFormField(
+                      controller: controllerActivityName,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          labelText: "請輸入活動名稱",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          labelStyle:
+                              TextStyle(color: Colors.grey, fontSize: 20)),
+                    ),
+                    SizedBox(height: height * 0.02),
+                    //輸入簡短介紹
+                    TextFormField(
+                      minLines: 4,
+                      maxLines: 6,
+                      keyboardType: TextInputType.multiline,
+                      controller: controllerintroduce,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          labelText: "請輸入介紹",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          labelStyle:
+                              TextStyle(color: Colors.grey, fontSize: 20)),
+                    ),
+                  ],
+                ),
+                //選運動和人數
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          DropdownButton(
+                            // 選擇運動項目欄位(下拉式清單)
+                            dropdownColor: mobileBackgroundColor,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 36,
+                            isExpanded: true,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22),
+                            hint: const Text(
+                              "  請選擇運動項目",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey),
+                            ),
+                            value: valueChoose1,
+                            onChanged: (newValue) {
+                              setState(() {
+                                valueChoose1 = newValue as String;
+                              });
+                            },
+                            items: listItem1.map((valueItem) {
+                              return DropdownMenuItem(
+                                value: valueItem,
+                                child: Text(valueItem,
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 20)),
+                              );
+                            }).toList(),
                           ),
                         ],
                       ),
-                    ]),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //活動名稱
-                        SizedBox(height: height * 0.02),
-                        TextFormField(
-                          controller: controllerActivityName,
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              labelText: "請輸入活動名稱",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              labelStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20)),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        //輸入簡短介紹
-                        TextFormField(
-                          minLines: 4,
-                          maxLines: 6,
-                          keyboardType: TextInputType.multiline,
-                          controller: controllerintroduce,
-                          decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              labelText: "請輸入介紹",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                              ),
-                              labelStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20)),
-                        ),
-                      ],
                     ),
-                    //選運動和人數
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Column(
-                              children: [
-                                DropdownButton(// 選擇運動項目欄位(下拉式清單)
-                                  dropdownColor: mobileBackgroundColor,
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  iconSize: 36,
-                                  isExpanded: true,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                  hint: const Text(
-                                    "  請選擇運動項目",
-                                    style: TextStyle(fontSize: 20, color: Colors.grey),
-                                  ),
-                                  value: valueChoose1,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      valueChoose1 = newValue as String;
-                                    });
-                                  },
-                                  items: listItem1.map((valueItem) {
-                                    return DropdownMenuItem(
-                                      value: valueItem,
-                                      child: Text(valueItem,
-                                          style: const TextStyle(
-                                              color: Colors.black, fontSize: 20)),
-                                    );
-                                  }).toList(),
-                                ),
-                              ],
-
-                        ),
-                        ),
-                        Expanded(
-                            child: Column(
-                              children: [
-                                DropdownButton(
-                                  dropdownColor: mobileBackgroundColor,
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  iconSize: 36,
-                                  isExpanded: true,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                  hint: const Text(
-                                    "  人數限制",
-                                    style: TextStyle(fontSize: 20, color: Colors.grey),
-                                  ),
-                                  value: valueChoose2,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      valueChoose2 = newValue as String;
-                                    });
-                                  },
-                                  items: limitnum.map((numItem) {
-                                    return DropdownMenuItem(
-                                      value: numItem,
-                                      child: Text(numItem,
-                                          style: const TextStyle(
-                                              color: Colors.black, fontSize: 20)),
-                                    );
-                                  }).toList(),
-                                ),
-                              ],
-
-                        ),
-                        ),
-                      ],
-
-                    ),
-                    Row(
-                      children: [
-                        // 選擇日期
-                        Expanded(
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: height * 0.02),
-                              Text(
-                                textAlign: TextAlign.center,
-                                '${dateTime.year}/${dateTime.month}/${dateTime
-                                    .day}',
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                              DateButtonWidget(
-                                  onClicked: () =>
-                                      Utils.showSheet(context,
-                                          child: buildDatePicker(),
-                                          onClicked: () {
-                                            final datevalue = DateFormat(
-                                                'yyyy/MM/dd')
-                                                .format(dateTime);
-                                            Utils.showSnackBar(
-                                                context, '選擇 "$datevalue"');
-                                            Navigator.pop(context);
-                                          }))
-                            ],
-                          ),
-                        ),
-                        // 選擇時間
-                        Expanded(
-                          child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: height * 0.02),
-                              Text(
-                                textAlign: TextAlign.center,
-                                '${dateTime.hour}:${dateTime.minute}',
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                              TimeButtonWidget(
-                                  onClicked: () =>
-                                      Utils.showSheet(context,
-                                          child: buildDateTimePicker(),
-                                          onClicked: () {
-                                            final timevalue =
-                                            DateFormat('HH:mm').format(
-                                                dateTime);
-                                            Utils.showSnackBar(
-                                                context, '選擇 "$timevalue"');
-                                            Navigator.pop(context);
-                                          }))
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-
-                    // 設置活動按鈕
-                    Column(
-                      //crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: height * 0.02),
-                          Container(
-                            height: 60,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(100, 42),
-                                  primary: appbarColor),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                // ignore: prefer_const_literals_to_create_immutables
-                                children: [
-                                  const Icon(Icons.check_outlined, size: 28),
-                                  const SizedBox(width: 9),
-                                  const Text(
-                                    '創建活動 ',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                              onPressed: () {
-                                uploadImage();
-                                showAlertDialog(context);
-                              },
+                    Expanded(
+                      child: Column(
+                        children: [
+                          DropdownButton(
+                            dropdownColor: mobileBackgroundColor,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            iconSize: 36,
+                            isExpanded: true,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22),
+                            hint: const Text(
+                              "  人數限制",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey),
                             ),
+                            value: valueChoose2,
+                            onChanged: (newValue) {
+                              setState(() {
+                                valueChoose2 = newValue as String;
+                              });
+                            },
+                            items: limitnum.map((numItem) {
+                              return DropdownMenuItem(
+                                value: numItem,
+                                child: Text(numItem,
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 20)),
+                              );
+                            }).toList(),
                           ),
-                        ])
-                  ]),
-                ])));
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    // 選擇日期
+                    Expanded(
+                      child: Column(
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: height * 0.02),
+                          Text(
+                            textAlign: TextAlign.center,
+                            '${dateTime.year}/${dateTime.month}/${dateTime.day}',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          DateButtonWidget(
+                              onClicked: () => Utils.showSheet(context,
+                                      child: buildDatePicker(), onClicked: () {
+                                    final datevalue = DateFormat('yyyy/MM/dd')
+                                        .format(dateTime);
+                                    Utils.showSnackBar(
+                                        context, '選擇 "$datevalue"');
+                                    Navigator.pop(context);
+                                  }))
+                        ],
+                      ),
+                    ),
+                    // 選擇時間
+                    Expanded(
+                      child: Column(
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: height * 0.02),
+                          Text(
+                            textAlign: TextAlign.center,
+                            '${dateTime.hour}:${dateTime.minute}',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          TimeButtonWidget(
+                              onClicked: () => Utils.showSheet(context,
+                                      child: buildDateTimePicker(),
+                                      onClicked: () {
+                                    final timevalue =
+                                        DateFormat('HH:mm').format(dateTime);
+                                    Utils.showSnackBar(
+                                        context, '選擇 "$timevalue"');
+                                    Navigator.pop(context);
+                                  }))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+
+                // 設置活動按鈕
+                Column(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: height * 0.02),
+                      Container(
+                        height: 60,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(100, 42),
+                              primary: appbarColor),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              const Icon(Icons.check_outlined, size: 28),
+                              const SizedBox(width: 9),
+                              const Text(
+                                '創建活動 ',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            uploadImage();
+                            showAlertDialog(context);
+                          },
+                        ),
+                      ),
+                    ])
+              ]),
+            ])));
   }
 
   //void setState(Null Function() param0) {}
 
   final double coverHeight = 280;
 
-  Widget buildCoverImage() =>
-      Container(
+  Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: Image.network(
           'https://i.im.ge/2022/07/12/u4J6aF.webp',
@@ -461,16 +444,11 @@ class _CreateActivityPage extends State<CreateActivityPage> {
         ),
       );
 
-  Widget buildDatePicker() =>
-      SizedBox(
+  Widget buildDatePicker() => SizedBox(
         height: 180,
         child: CupertinoDatePicker(
-          minimumYear: DateTime
-              .now()
-              .year,
-          maximumYear: DateTime
-              .now()
-              .year + 6,
+          minimumYear: DateTime.now().year,
+          maximumYear: DateTime.now().year + 6,
           initialDateTime: DateTime.now(),
           mode: CupertinoDatePickerMode.date,
           onDateTimeChanged: (dateTime) =>
@@ -478,8 +456,7 @@ class _CreateActivityPage extends State<CreateActivityPage> {
         ),
       );
 
-  Widget buildDateTimePicker() =>
-      SizedBox(
+  Widget buildDateTimePicker() => SizedBox(
         height: 180,
         child: CupertinoDatePicker(
           initialDateTime: this.dateTime,
@@ -508,7 +485,6 @@ class _CreateActivityPage extends State<CreateActivityPage> {
     final snapshot = await uploadTask!.whenComplete(() {});
     URL = await snapshot.ref.getDownloadURL();
 
-
     final docUser = FirebaseFirestore.instance.collection("Users").doc();
     await FirebaseFirestore.instance.collection("Users").doc(docUser.id).set({
       'uid': docUser.id,
@@ -520,20 +496,19 @@ class _CreateActivityPage extends State<CreateActivityPage> {
       'time': '${dateTime.hour}:${dateTime.minute}',
       'picture': URL,
       'whopost': FirebaseAuth.instance.currentUser!.uid,
-      'introduce':controllerintroduce.text,
-      'limitnum':valueChoose2!,
+      'introduce': controllerintroduce.text,
+      'limitnum': valueChoose2!,
       'joinlist': [],
-    }
-    );
+    });
     setState(() {
       uploadTask = null;
     });
   }
 
-  getMyData() async
-  {
+  getMyData() async {
     final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('users').doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     String whopostname = userDoc.get('username');
@@ -550,9 +525,7 @@ class _CreateActivityPage extends State<CreateActivityPage> {
             child: Text("OK"),
             onPressed: () {
               Navigator.pop(context);
-            }
-        ),
-
+            }),
       ],
     );
 
@@ -561,9 +534,6 @@ class _CreateActivityPage extends State<CreateActivityPage> {
         context: context,
         builder: (BuildContext context) {
           return dialog;
-        }
-    );
+        });
   }
-
-
 }

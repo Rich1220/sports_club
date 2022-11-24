@@ -63,12 +63,17 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Flexible(flex: 2, child: Container()),
               // svg image
+              // SvgPicture.asset(
+              //   'assets/2_adobe_express.svg',
+              //   height: 180,
+              // ),
+              SizedBox(height: 30,),
               SvgPicture.asset(
                 'assets/SportsClub.svg',
-                color: primaryColor,
+                color: Colors.red[600],
                 height: 50,
               ),
-              const SizedBox(height: 64),
+              const SizedBox(height: 40),
               //textfield input for email
               TextFieldInput(
                   textEditingController: _emailController,

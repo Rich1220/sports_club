@@ -91,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // svg image
                   SvgPicture.asset(
                     'assets/SportsClub.svg',
-                    color: primaryColor,
+                    color: Colors.red[600],
                     height: 50,
                   ),
                   const SizedBox(height: 20),
