@@ -24,34 +24,35 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   final TextEditingController _textController = TextEditingController();
   var data;
   bool isLoading = false;
+  bool isLoadingM = false;
   var userData = {};
 
-  getUserData() async{
+  getUserData() async {
     setState(() {
-        isLoading = true;
-      });
+      isLoading = true;
+    });
     //get users document
-      var userSnap = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUserId)
-          .get();
+    var userSnap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserId)
+        .get();
 
     userData = userSnap.data()!;
     setState(() {
-        isLoading = false;
-      });
+      isLoading = false;
+    });
   }
 
   getChatDocId() async {
     setState(() {
-      isLoading = true;
+      isLoadingM = true;
     });
     await chats
         .where('users',
             isEqualTo: {widget.friendUid: null, currentUserId: null})
         .limit(1)
         .get()
-        .then((QuerySnapshot querySnapshot) async{
+        .then((QuerySnapshot querySnapshot) async {
           if (querySnapshot.docs.isNotEmpty) {
             chatDocId = querySnapshot.docs.single.id;
           } else {
@@ -60,7 +61,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 currentUserId: null,
                 widget.friendUid: null,
               },
-              'names':{
+              'names': {
                 currentUserId: userData['username'],
                 widget.friendUid: widget.friendName,
               }
@@ -70,7 +71,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         .catchError((error) {});
 
     setState(() {
-      isLoading = false;
+      isLoadingM = false;
     });
   }
 
@@ -155,8 +156,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                             child: Container(
                                 decoration: BoxDecoration(
                                   color: isSender(data['uid'].toString())
-                                      ? Color.fromARGB(255, 143, 188, 210)
-                                      : Colors.grey,
+                                      ? Colors.blue
+                                      : Colors.green,
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(16)),
                                 ),
@@ -182,10 +183,13 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           ),
                         ),
                         IconButton(
-                            onPressed: () => isLoading?() {
-                              
-                            }:sendMessage(_textController.text),
-                            icon: const Icon(Icons.send_rounded,color: appbarColor,))
+                            onPressed: () => isLoadingM
+                                ? () {}
+                                : sendMessage(_textController.text),
+                            icon: const Icon(
+                              Icons.send_rounded,
+                              color: appbarColor,
+                            ))
                       ],
                     ),
                   ],

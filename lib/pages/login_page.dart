@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 30,),
               SvgPicture.asset(
                 'assets/SportsClub.svg',
-                color: Colors.red[600],
+                color: Colors.black,
                 height: 50,
               ),
               const SizedBox(height: 40),

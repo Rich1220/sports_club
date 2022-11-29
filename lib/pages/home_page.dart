@@ -251,7 +251,7 @@ Stream<List<Userr>> readUsers() => FirebaseFirestore.instance//列出所有
 
 Stream<List<Userr>> readonlyschool() => FirebaseFirestore.instance//只選學校
     .collection('Users')
-    .where("location", isEqualTo: tmp)
+    .where("location", isEqualTo: tmp) 
     .snapshots()
     .map((snapshots) =>
     snapshots.docs.map((doc) => Userr.fromJson(doc.data())).toList());

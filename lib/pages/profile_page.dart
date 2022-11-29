@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:sports_club/pages/calendar_page.dart';
 import 'package:sports_club/pages/chat_detail_page.dart';
 import 'package:sports_club/pages/edit_profile_page.dart';
+import 'package:sports_club/pages/expired_activity.dart';
 import 'package:sports_club/pages/login_page.dart';
+import 'package:sports_club/pages/my_activity.dart';
+import 'package:sports_club/pages/my_upcoming_activity.dart';
 import 'package:sports_club/resources/auth_methods.dart';
 import 'package:sports_club/utils/colors.dart';
 import 'package:sports_club/widgets/follow_button.dart';
@@ -332,7 +335,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyActivityPage()));
+                            },
                             color: Colors.yellow,
                             child: Row(
                               children: [
@@ -363,7 +368,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const UpComingActivity()));
+                            },
                             color: Colors.red,
                             child: Row(
                               children: [
@@ -392,7 +399,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                               Navigator.push(context, MaterialPageRoute(builder: (context) => const ExpiredActivity()));
+                            },
                             color: Colors.blue,
                             child: Row(
                               children: [
