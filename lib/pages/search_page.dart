@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sports_club/pages/profile_page.dart';
@@ -36,8 +37,8 @@ class _SearchPageState extends State<SearchPage> {
             },
           ),
         ),
-        body: /*isShowUsers
-            ?*/ FutureBuilder(
+         body: //isShowUsers? 
+        FutureBuilder(
                 future: FirebaseFirestore.instance
                     .collection('users')
                     .where('username',
@@ -52,7 +53,8 @@ class _SearchPageState extends State<SearchPage> {
                   return ListView.builder(
                     itemCount: (snapshot.data! as dynamic).docs.length,
                     itemBuilder: (context, index) {
-                      return InkWell(
+                      return (snapshot.data! as dynamic).docs[index]
+                                    ['uid'] == FirebaseAuth.instance.currentUser!.uid?Container():InkWell(
                         onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => ProfilePage(

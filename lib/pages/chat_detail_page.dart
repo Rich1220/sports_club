@@ -41,6 +41,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     setState(() {
       isLoading = false;
     });
+    getChatDocId();
   }
 
   getChatDocId() async {
@@ -56,7 +57,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           if (querySnapshot.docs.isNotEmpty) {
             chatDocId = querySnapshot.docs.single.id;
           } else {
-            chats.add({
+            await chats.add({
               'users': {
                 currentUserId: null,
                 widget.friendUid: null,
@@ -78,7 +79,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   void initState() {
     super.initState();
-    getChatDocId();
     getUserData();
   }
 
@@ -119,7 +119,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               ),
               centerTitle: true,
             ),
-            body: StreamBuilder<QuerySnapshot>(
+            body: isLoadingM?Container():StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('chats')
                   .doc(chatDocId)

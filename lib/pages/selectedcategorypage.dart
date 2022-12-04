@@ -9,7 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sports_club/pages/group_chat_page.dart';
 import 'package:sports_club/pages/home_page.dart';
+import 'package:sports_club/pages/profile_page.dart';
 import 'package:sports_club/resources/firestore_methods.dart';
 import 'package:sports_club/utils/colors.dart';
 
@@ -47,6 +49,7 @@ class SelectedCategoryPage extends StatefulWidget {
 
 class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
   //SelectedCategoryPage(String imgName);
+  var activtyData = {};
   var userData = {};
   bool cmdtext = false;
   bool coloron = false;
@@ -113,7 +116,12 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
           .collection('users')
           .doc(widget.whopost)
           .get();
+      var activitySnap = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(widget.uid)
+          .get();
       userData = userSnap.data()!;
+      activtyData = activitySnap.data()!;
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -133,6 +141,45 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
     return userUrl['photoUrl'];
   }
 
+  createGroupChat() async {
+    await FirebaseFirestore.instance
+        .collection('GroupChat')
+        .doc(widget.uid)
+        .set({
+      "gid": widget.uid,
+      "groupName": widget.name,
+      "last_message": "",
+      "last_message_time": "",
+    });
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => GroupChatPage(widget.uid)));
+  }
+
+  CheckIfGroupChat() async {
+    await FirebaseFirestore.instance
+        .collection('GroupChat')
+        .doc(widget.uid)
+        .get()
+        .then(
+      (DocumentSnapshot snapshot) {
+        if (!snapshot.exists) {
+          createGroupChat();
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GroupChatPage(widget.uid)));
+        }
+      },
+    );
+  }
+
+  refresh() {
+    setState(() {
+      getData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -147,6 +194,20 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
           backgroundColor: appbarColor,
           title: const Text('活動資訊'),
           centerTitle: true,
+          actions: [
+            isLoading
+                ? Container()
+                : activtyData['joinlist']
+                            .contains(FirebaseAuth.instance.currentUser!.uid) ||
+                        activtyData['whopost'] ==
+                            FirebaseAuth.instance.currentUser!.uid
+                    ? IconButton(
+                        onPressed: () {
+                          CheckIfGroupChat();
+                        },
+                        icon: const Icon(Icons.chat_bubble_outline))
+                    : Container(),
+          ],
         ),
         body: Container(
           alignment: Alignment.center,
@@ -185,7 +246,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                     "舉辦人 :",
                     style: TextStyle(fontSize: 28),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   isLoading
                       ? Container()
                       : CircleAvatar(
@@ -194,7 +255,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                             userData['photoUrl'],
                           ),
                           radius: 18),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   isLoading
@@ -232,10 +293,21 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
                               return const CircularProgressIndicator(
-                                color: Colors.black,
+                                color: Colors.white,
                               );
                             }
-                            return buildAvatar((snapshot.data! as dynamic)['photoUrl']);
+                            return GestureDetector(
+                              onTap: (snapshot.data! as dynamic)['uid'] ==
+                                      FirebaseAuth.instance.currentUser!.uid
+                                  ? null
+                                  : () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => ProfilePage(
+                                              uid: (snapshot.data!
+                                                  as dynamic)['uid']))),
+                              child: buildAvatar(
+                                  (snapshot.data! as dynamic)['photoUrl']),
+                            );
                           },
                         );
                       }),
@@ -373,6 +445,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                                       cmdtext = !cmdtext;
                                       coloron = !coloron;
                                     });
+                                    refresh();
                                   },
                                   color: coloron ? Colors.grey : appbarColor,
                                   child: cmdtext
@@ -395,6 +468,7 @@ class _SelectedCategoryPageState extends State<SelectedCategoryPage> {
                                   cmdtext = !cmdtext;
                                   coloron = !coloron;
                                 });
+                                refresh();
                               },
                               color: coloron ? Colors.grey : appbarColor,
                               child: cmdtext

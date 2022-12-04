@@ -27,7 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  table_calendar: ^3.0.8
+  camera: ^0.10.0+1
   cloud_firestore: ^3.4.4
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.3.3
@@ -35,20 +35,21 @@ dependencies:
   firebase_storage: ^10.3.5
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.11.0
   flutter_mobx: ^2.0.6+1
   flutter_staggered_grid_view: ^0.4.1
   flutter_svg: ^1.1.4
+  http: ^0.13.4
   image_picker: ^0.8.5+3
   intl: ^0.17.0
-  mobx: ^2.0.7+5
-  provider: ^6.0.1
-  uuid: ^3.0.6
-  path: ^1.8.1
-  http: ^0.13.4
-  camera: ^0.10.0+1
-  permission_handler: ^10.0.0 
-  path_provider: ^2.0.11
   json_serializable: ^6.3.1
+  mobx: ^2.0.7+5
+  path: ^1.8.1
+  path_provider: ^2.0.11
+  permission_handler: ^10.0.0
+  provider: ^6.0.1
+  table_calendar: ^3.0.8
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -71,6 +72,7 @@ flutter:
     - assets/school.json
     - assets/1_adobe_express.svg
     - assets/2_adobe_express.svg
+    - assets/sportsClub.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -95,3 +97,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/sportsClub.png"
+  remove_alpha_ios: true 
