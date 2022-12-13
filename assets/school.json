@@ -42,5 +42,9 @@
     {
         "schoolname": "國立臺北商業大學",
         "schooladdress": "臺北市中正區濟南路一段321號"
+    },
+    {         
+        "schoolname": "輔仁大學",         
+        "schooladdress": "新北市新莊區中正路510號"     
     }
 ]

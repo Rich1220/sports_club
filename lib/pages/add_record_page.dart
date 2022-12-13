@@ -301,7 +301,7 @@ class _AddRecordState extends State<AddRecord> {
   }
 
   Future createrecord( Recorder recorder) async {
-    final docUser = FirebaseFirestore.instance.collection('collection').doc(FirebaseAuth.instance.currentUser!.uid);
+    final docUser = FirebaseFirestore.instance.collection('collection').doc();
 
     recorder.id=FirebaseAuth.instance.currentUser!.uid;
     final json = recorder.toJson();

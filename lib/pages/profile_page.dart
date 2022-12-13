@@ -336,9 +336,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {
+                            onPressed: FirebaseAuth.instance.currentUser!.uid==widget.uid?() {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const MyActivityPage()));
-                            },
+                            }:(){},
                             color: Colors.yellow,
                             child: Row(
                               children: [
@@ -369,9 +369,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {
+                            onPressed: FirebaseAuth.instance.currentUser!.uid==widget.uid?() {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const UpComingActivity()));
-                            },
+                            }:(){},
                             color: Colors.red,
                             child: Row(
                               children: [
@@ -400,9 +400,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 350,
                           height: 40,
                           child: RaisedButton(
-                            onPressed: () {
+                            onPressed: FirebaseAuth.instance.currentUser!.uid==widget.uid?() {
                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ExpiredActivity()));
-                            },
+                            }:(){},
                             color: Colors.blue,
                             child: Row(
                               children: [
